@@ -15,7 +15,7 @@ export class T3serviceService {
   constructor(private http: HttpClient) { }
 
   generateText(prompt: string) {
-    const url = "http://127.0.0.1:5000/generate";  
+    const url = "http://127.0.0.1:8000/api/v1/generate";  
 
     const payload = {
       prompt: prompt
@@ -40,7 +40,7 @@ export class T3serviceService {
 
   generateQuiz(formValues: any): Observable<any> {
 
-    const url = "http://127.0.0.1:5000/generate";  
+    const url = "http://127.0.0.1:8000/api/v1/generate";  
 
     // Prompt oluşturulması
     const input = `${formValues.ders} dersinden ${formValues.soruSayisi} adet ${formValues.zorluk} zorlukta ${formValues.soruStili} soru oluştur.`;
@@ -67,14 +67,14 @@ export class T3serviceService {
   }
 
   sendPrompt(prompt: string): Observable<any> {
-    const url = "http://127.0.0.1:5000/generate";  
+    const url = "http://127.0.0.1:8000/api/v1/generate";  
     const body = { prompt: prompt };
     return this.http.post<any>(url, body);
   }
 
   
   generateQuestionAnswering(prompt: string) {
-    const url = "http://127.0.0.1:5000/generate";  
+    const url = "http://127.0.0.1:8000/api/v1/generate";  
 
     const payload = {
       prompt: prompt
@@ -97,7 +97,7 @@ export class T3serviceService {
   }
 
   submitFeedback(message: string, feedbackText: string): Observable<any> {
-    const url = 'http://127.0.0.1:5000/save-feedback';
+    const url = 'http://127.0.0.1:8000/api/v1/save-feedback';
     const feedback = {
       interaction_id: '12345',  
       user_id: 'user_001',  
