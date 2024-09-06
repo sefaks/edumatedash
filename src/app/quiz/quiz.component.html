@@ -1,0 +1,68 @@
+<div class="container">
+    <form [formGroup]="quizForm">
+    <div class="quiz-selections">
+        <mat-form-field class="selection" appearance="fill">
+            <mat-label>Ders Seçimi</mat-label>
+            <mat-select  formControlName="ders"  required>
+              <mat-option value="turkce">Türkçe</mat-option>
+              <mat-option value="matematik">Matematik</mat-option>
+              <mat-option value="sosyal-bilgiler">Sosyal Bilgiler</mat-option>
+              <mat-option value="fen-bilgisi">Fen Bilgisi</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="selection" appearance="fill">
+            <mat-label>Soru Stili</mat-label>
+            <mat-select  formControlName="soruStili"  required>
+              <mat-option value="klasik">Klasik Tarz</mat-option>
+              <mat-option value="test">Çoktan Seçmeli</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="selection" appearance="fill">
+            <mat-label>Zorluk Seçimi</mat-label>
+            <mat-select formControlName="zorluk"  required>
+              <mat-option value="kolay">Kolay</mat-option>
+              <mat-option value="orta">Orta</mat-option>
+              <mat-option value="zor">Zor</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="selection" appearance="fill">
+            <mat-label>Soru Sayısı</mat-label>
+            <mat-select formControlName="soruSayisi" id="age"  required  >
+                @for(number of numbers;track number){
+                  <mat-option  [value]="number">{{ number }}</mat-option>
+                }
+              </mat-select>
+        </mat-form-field>
+        <button type="submit" class="generate-quiz-btn"  (click)="onQuizGenerate()">Quizi Oluştur</button>
+    </div>
+
+    <div class="quiz-questions">
+
+        @if(questions.length >0 ){
+            @for(question of questions; track $index){
+                @if(question.type === 'open-ended'){
+                    <div class="question">
+                        <h3 class="question-text">{{ i + 1}}. {{ question.text }}</h3>
+                        <div class="answer">
+                            <textarea matInput placeholder="Cevabınızı buraya yazın"></textarea>
+                        </div>
+                    </div>
+                }@else {
+                    <div class="question" *ngFor="let question of questions; let i = index">
+                        <h3 class="question-text">{{i + 1}}. {{ question.text }}</h3>
+                        <div class="answer">
+                            <textarea matInput placeholder="Cevabınızı buraya yazın"></textarea>
+                        </div>
+                    </div>
+                }
+                   
+            }
+            <button  mat-raised-button color="accent"  >Sınavı Bitir</button>
+
+        }
+        </div>
+
+</form>
+    
+
+</div>

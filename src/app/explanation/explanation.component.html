@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="chat-container">
+  <header class="chat-header">
+    <h3 class="title">Konu Anlatıma Hoşgeldin, hadi beraber çalışalım! Birlikten kuvvet doğar.</h3>
+  </header>
+
+  <main class="chat-history">
+    <!-- Geçmiş mesajları gösterme -->
+    <ng-container >
+        @for(item of chatHistory;track $index){
+            <div class="messages" [ngClass]="{'user-message': item.from === 'user', 'assistant-message': item.from === 'assistant'}">
+              <!-- Kullanıcıdan gelen mesajlar -->
+              <div *ngIf="item.from === 'user'" class="col-lg-12">
+                <span class="icon-left">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span class="responses">{{ item.message }}</span>
+              </div>
+      
+              <!-- assistanttan gelen mesajlar -->
+              <div *ngIf="item.from === 'assistant'" class="col-lg-12 d-flex justify-content-between">
+                <div class="col-lg-6 lesson-image">
+                  <img src="../../assets/camunda.png" class="img-fluid" alt="Lesson Image">
+                </div>
+                <div class="col-lg-6">
+                  <span class="responses">{{ item.message }}</span>
+                  <span class="icon-right">
+                    <i class="fa fa-graduation-cap"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+    }
+</ng-container>
+
+    
+
+    <!-- Yükleme durumu gösterme -->
+    <ng-container *ngIf="loading">
+      <app-skeleton></app-skeleton>
+    </ng-container>
+  </main>
+
+  <!-- Kullanıcıdan mesaj almayı sağlayan giriş ve buton -->
+  <footer class="chat-input">
+    <input
+      class="user-input"
+      type="text"
+      id="message-input"
+      (keyup.enter)="sendData()"
+      placeholder="Mesajınızı yazın..."
+      [(ngModel)]="prompt"
+      [disabled]="loading"
+      autocomplete="off"
+    />
+    <button
+      class="send-button"
+      id="send-button"
+      (click)="sendData()"
+      [disabled]="loading"
+    >Gönder</button>
+  </footer>
+</div>

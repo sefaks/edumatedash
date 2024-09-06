@@ -1,0 +1,43 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+.medcon {
+  padding-left: 50px;
+  padding-top: 10px;
+}
+
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+.nav-list a.mat-list-item:not(:last-child) {
+  margin-bottom: 40px; 
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.nav-list {
+  margin-top: 100px;
+}
+
+
+.sections{
+  margin-bottom: 50px;
+}
+span{
+  padding-left: 10px;
+}
+
+.section{
+  margin-bottom: 30px;
+}
+
+

@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="medcon">EDU-MATE</mat-toolbar>
+    <mat-nav-list class="nav-list">
+      <a class="section" mat-list-item  routerLink="/navigation/explanation">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span>Konu Anlatımı</span> 
+      </a>
+      <a class="section" mat-list-item  routerLink="/navigation/question-answering">
+        <mat-icon>help_outline</mat-icon>
+        <span>Soru Çözümü</span> 
+      </a>
+      <a class="section" mat-list-item  routerLink="/navigation/quiz">
+        <i class="fas fa-list-alt"></i>
+        <span>Mini Quiz</span> 
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      @if (isHandset$ | async) {
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>Çalışma Masam</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
