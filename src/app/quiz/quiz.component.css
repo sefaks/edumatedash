@@ -11,7 +11,7 @@
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #d1d1f5;
+    background-color: #ededf2;
 }
 
 .quiz-questions {
@@ -32,7 +32,7 @@
 
 .question-text {
   font-size: 18px;
-  font-weight: bold;
+  font-weight:600;
   margin-bottom: 10px;
   color: #333;
 }
@@ -88,4 +88,75 @@ button {
   font-weight: 500;
   font-size: larger;
   font-style: normal;
+}
+
+.footer {
+  display: flex;
+  justify-content: center; /* Buton grubunu sola, süreyi sağa hizalar */
+  align-items: center; /* Dikey hizalama için */
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px; /* Butonlar arasına boşluk (isteğe bağlı) */
+}
+
+.countdown h2 {
+  margin: 0; /* Başlık margin'ini sıfırlar */
+}
+.countdown{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.title{
+  font-weight:500;
+  font-size: 18px;
+  font-style: normal;
+}
+
+
+/* quiz.component.css */
+
+/* Genel stili belirler */
+h2 {
+  color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #34495e;
+}
+
+/* Açıklamalar için stil */
+p strong {
+  color: #e74c3c;
+}
+
+/* Düğme stili */
+button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
 }

@@ -7,6 +7,7 @@
     <!-- Geçmiş mesajları gösterme -->
     <ng-container *ngFor="let item of chatHistory; trackBy: trackByFn">
       <div class="messages" [ngClass]="{'user-message': item.from === 'user', 'assistant-message': item.from === 'assistant'}">
+        
         <!-- Kullanıcıdan gelen mesajlar -->
         <div *ngIf="item.from === 'user'" class="col-lg-12">
           <span class="icon-left">
@@ -26,6 +27,13 @@
         </div>
       </div>
     </ng-container>
+
+    <!-- Kullanıcıdan cevap bekleniyor mu? -->
+    <div *ngIf="waitingForAnswer" class="col-lg-12">
+      <h3>Cevabınızı giriniz:</h3>
+      <textarea class="answer" [(ngModel)]="userAnswer" rows="4" cols="50"></textarea>
+      <button class="answer-send" (click)="submitAnswer()">Cevabı Gönder</button>
+    </div>
 
     <!-- Yükleme durumu gösterme -->
     <ng-container *ngIf="loading">

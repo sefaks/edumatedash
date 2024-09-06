@@ -31,6 +31,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { DailyRemindersComponent } from './daily-reminders/daily-reminders.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MyQuizzesComponent } from './my-quizzes/my-quizzes.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     QuizComponent,
     SkeletonComponent,
     ScheduleComponent,
-    DailyRemindersComponent
+    DailyRemindersComponent,
+    MyQuizzesComponent
+    
   ],
   // ...
 

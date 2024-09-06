@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-daily-reminders',
   templateUrl: './daily-reminders.component.html',
-  styleUrl: './daily-reminders.component.css'
+  styleUrls: ['./daily-reminders.component.css']
 })
 export class DailyRemindersComponent {
   lessonForm!: FormGroup;
@@ -25,7 +25,7 @@ export class DailyRemindersComponent {
   loadLessons() {
     const savedLessons = localStorage.getItem('schedule');
     if (savedLessons) {
-      this.lessons = JSON.parse(savedLessons);
+      this.lessons = JSON.parse(savedLessons); // localStorage'dan ders programını al
     }
   }
 
@@ -35,7 +35,7 @@ export class DailyRemindersComponent {
     previousDate.setDate(selectedDate.getDate() - 1); // Bir gün önceki tarihi hesapla
 
     const previousDay = this.getDayName(previousDate);
-    this.updateLessonInfo(previousDay);
+    this.updateLessonInfo(previousDay); // Bir önceki güne göre ders bilgilerini güncelle
   }
 
   getDayName(date: Date): string {
@@ -47,10 +47,10 @@ export class DailyRemindersComponent {
     if (this.lessons[day]) {
       this.selectedLesson = {
         title: `${day} Dersi Tekrar Bilgileri`,
-        content: this.lessons[day].join(', ') // Ders bilgilerini birleştirir
+        content: this.lessons[day].join(', ') // Ders bilgilerini birleştirip göster
       };
     } else {
-      this.selectedLesson = null;
+      this.selectedLesson = null; // Eğer o gün ders yoksa boş bırak
     }
   }
 }

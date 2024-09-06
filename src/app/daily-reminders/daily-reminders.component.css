@@ -1,15 +1,33 @@
-.lesson-container {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .lesson-selections {
-    margin-bottom: 20px;
-  }
-  
-  .selection {
-    width: 100%;
-  }
+.container {
+  padding: 20px;
+}
+
+.lesson-info {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.no-lesson-info {
+  color: red;
+  font-weight: bold;
+}
+
+.lessons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.lesson-card {
+  background-color: #e0f7fa;
+  border-radius: 5px;
+  padding: 15px;
+  width: calc(33% - 20px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-card h4 {
+  margin-top: 0;
+}

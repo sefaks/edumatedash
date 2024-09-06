@@ -1,69 +1,71 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <div class="chat-container">
-    <header class="chat-header">
-      <h3 class="title">Soru Çözümüne Hoşgeldin! İkimiz bir olursak soruları çok kolay çözeriz.</h3>
-    </header>
-    <main id="history"  class="chat-history">
-      <ng-container>
-      @for(item of chatHistory;track $index){
-        <div class="messages" [ngClass]="{'user-message': item.from === 'user', 'assistant-message': item.from === 'assistant'}">
-          @if(item.from ==='user'){
-            <div class="col-lg-12">
-              <span class="icon-left">
-                <i class="fa fa-user"></i>
-              </span>
-              <span class="responses">{{item.message}}</span>
-            </div>
-            
-
-          }
-          @if(item.from === 'assistant'){
-            <div class="col-lg-12 d-flex justify-conent-between">
-            <div class="col-lg-6 lesson-image">
-              <img src="../../assets/camunda.png"  class="img-fluid" >
-            </div>
-            <div class="col-lg-6 ">
-              <span class="responses">{{item.message}}</span>
-              <span class="icon-right">
-                <i class="fa fa-graduation-cap"></i>
-              </span>
-            </div>
-            </div>
-            
-
-          }
+  <header class="chat-header">
+    <h3 class="title">Soru Çözümüne Hoşgeldin! İkimiz bir olursak soruları çok kolay çözeriz.</h3>
+  </header>
+  <main id="history" class="chat-history">
+    <ng-container *ngFor="let item of chatHistory; trackBy: trackByIndex">
+      <div class="messages" [ngClass]="{'user-message': item.from === 'user', 'assistant-message': item.from === 'assistant'}">
+        <div *ngIf="item.from === 'user'" class="col-lg-12">
+          <span class="icon-left">
+            <i class="fa fa-user"></i>
+          </span>
+          <span class="responses">{{item.message}}</span>
         </div>
-      }
+        <div *ngIf="item.from === 'assistant'" class="col-lg-12 d-flex justify-content-between">
+          <div class="col-lg-6">
+            <span class="responses">{{item.message}}</span>
+            <span class="icon-right">
+              <i class="fa fa-graduation-cap"></i>
+            </span>
+            <div class="feedback-buttons">
+              <button class="btn btn-success" (click)="likeAnswer(item)">Beğen</button>
+              <button class="btn btn-danger" (click)="dislikeAnswer(item)">Beğenmedim</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </ng-container>
-      <ng-container *ngIf="loading">
-        <app-skeleton></app-skeleton>
-      </ng-container>
-    </main>
-  
-    <footer class="chat-input">
-      <input
-        class="user-input"
-        type="text"
-        id="message-input"
-        (keyup.enter)="sendData()"
-        placeholder="Hadi Çözelim Şu Soruları..."
-        [(ngModel)]="prompt"
-        [disabled]="loading"
-        autocomplete="off"
-      />
-      <button
-        class="send-button"
-        id="send-button"
-        (click)="sendData()"
-        [disabled]="loading"
-      >Gönder</button>
-      <button
-        class="scroll-to-bottom"
-        (click)="goToBottom()"
-        [disabled]="loading"
-      >
-        <i class="fa fa-arrow-down"></i>
-      </button>
-    </footer>
+    <ng-container *ngIf="loading">
+      <app-skeleton></app-skeleton>
+    </ng-container>
+  </main>
+
+  <footer class="chat-input">
+    <input
+      class="user-input"
+      type="text"
+      id="message-input"
+      (keyup.enter)="sendData()"
+      placeholder="Soru yazın..."
+      [(ngModel)]="prompt"
+      [disabled]="loading"
+      autocomplete="off"
+    />
+    <button
+      class="send-button"
+      id="send-button"
+      (click)="sendData()"
+      [disabled]="loading"
+    >Gönder</button>
+    <button
+      class="scroll-to-bottom"
+      (click)="goToBottom()"
+      [disabled]="loading"
+    >
+      <i class="fa fa-arrow-down"></i>
+    </button>
+  </footer>
+
+  <div *ngIf="showFeedbackForm" class="feedback-form">
+    <h4>Geri Bildirim:</h4>
+    <textarea
+      class="user-input"
+      placeholder="Cevap nasıl olmalıydı?"
+      [(ngModel)]="feedback"
+    ></textarea>
+    <button
+      class="submit-feedback"
+      (click)="submitFeedback()"
+    >Geri Bildirim Gönder</button>
   </div>
+</div>

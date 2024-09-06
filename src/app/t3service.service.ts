@@ -9,7 +9,8 @@ import { EduRagResponse } from './models/eduragresponse';
 export class T3serviceService {
 
   messageHistory: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  messageHistoryQuestionAnswering: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  private messageHistoryQuestionAnsweringSubject = new BehaviorSubject<any[]>([]);
+  messageHistoryQuestionAnswering = this.messageHistoryQuestionAnsweringSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -37,30 +38,6 @@ export class T3serviceService {
   }
 
 
-  generateQuestionAnswering(prompt: string) {
-
-    const url = "http://127.0.0.1:5000/generate";  
-
-    const payload = {
-      prompt: prompt
-    };
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    this.http.post<any>(url, JSON.stringify(payload), { headers })
-      .subscribe(response => {
-        console.log('LLM Cevap:', response);
-        const history = this.messageHistoryQuestionAnswering.getValue();
-        history.push({ from: 'user', message: prompt });
-        history.push({ from: 'assistant', message: response });
-        this.messageHistoryQuestionAnswering.next(history);
-      }, error => {
-        console.error('Error:', error);
-      });
-  }
-
   generateQuiz(formValues: any): Observable<any> {
 
     const url = "http://127.0.0.1:5000/generate";  
@@ -76,7 +53,6 @@ export class T3serviceService {
       'Content-Type': 'application/json',
     });
 
-    // POST isteği ve yanıtın Observable olarak döndürülmesi
     return this.http.post<any>(url, JSON.stringify(payload), { headers });
   }
 
@@ -95,6 +71,63 @@ export class T3serviceService {
     const body = { prompt: prompt };
     return this.http.post<any>(url, body);
   }
+
+  
+  generateQuestionAnswering(prompt: string) {
+    const url = "http://127.0.0.1:5000/generate";  
+
+    const payload = {
+      prompt: prompt
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.http.post<any>(url, JSON.stringify(payload), { headers })
+      .subscribe(response => {
+        console.log('LLM Cevap:', response);
+        const history = this.messageHistoryQuestionAnsweringSubject.getValue();
+        history.push({ from: 'user', message: prompt });
+        history.push({ from: 'assistant', message: response });  
+        this.messageHistoryQuestionAnsweringSubject.next(history);
+      }, error => {
+        console.error('Error:', error);
+      });
+  }
+
+  submitFeedback(message: string, feedbackText: string): Observable<any> {
+    const url = 'http://127.0.0.1:5000/save-feedback';
+    const feedback = {
+      interaction_id: '12345',  
+      user_id: 'user_001',  
+      timestamp: new Date().toISOString(),
+      content_generated: {
+        input_prompt: message,
+        response: 'Model yaniti buraya gelecek' 
+      },
+      user_feedback: {
+        rating: 'dislike',
+        feedback_text: feedbackText,
+        preferred_response: 'Daha iyi bir yanit olabilirdi.' 
+      },
+      feedback_metadata: {
+        device: 'macos',
+        location: 'Antalya, Türkiye',
+        session_duration: 30  
+      }
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<any>(url, JSON.stringify(feedback), { headers });
+  }
+
+  
+
+ 
 
 
 

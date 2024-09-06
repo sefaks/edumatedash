@@ -6,6 +6,7 @@ import { QuestionAnsweringComponent } from './question-answering/question-answer
 import { QuizComponent } from './quiz/quiz.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { DailyRemindersComponent } from './daily-reminders/daily-reminders.component';
+import { MyQuizzesComponent } from './my-quizzes/my-quizzes.component';
 
 const routes: Routes = [
   { 
@@ -17,11 +18,12 @@ const routes: Routes = [
       { path: 'explanation', component: ExplanationComponent },
       { path: 'schedule', component: ScheduleComponent },
       {path: 'daily-reminders', component: DailyRemindersComponent},
+      {path: 'my-quizzes', component: MyQuizzesComponent},
+
       { path: '', redirectTo: 'explanation', pathMatch: 'full' },
       { path: '**', redirectTo: 'explanation' }
     ]
   },
-  // Eğer root path'e (yani '/') gidilirse 'navigation/explanation' yoluna yönlendir
   { path: '', redirectTo: '/navigation/explanation', pathMatch: 'full' },
   { path: '**', redirectTo: '/navigation/explanation' }
 ];

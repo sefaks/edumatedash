@@ -1,16 +1,26 @@
-<form [formGroup]="lessonForm">
-    <div class="date-selection">
-        <mat-form-field>
-            <mat-label>Tarihi Seçelim</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+<div class="container">
+    <h2>Ders Tekrarları</h2>
+    
+    <!-- Tarih Seçimi -->
+    <form [formGroup]="lessonForm">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" formControlName="date" (dateChange)="onDateChange($event)" placeholder="Tarih Seç">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+  
+    <!-- Ders tekrar bilgileri -->
+    <div *ngIf="selectedLesson" class="lesson-info">
+      <h3>{{ selectedLesson.title }}</h3>
+      <p>{{ selectedLesson.content }}</p>
     </div>
-
-    <div *ngIf="selectedLesson" class="lesson-container">
-        <h3>{{ selectedLesson.title }}</h3>
-        <p>{{ selectedLesson.content }}</p>
+  
+    <!-- Eğer tekrar bilgisi yoksa uyarı -->
+    <div *ngIf="!selectedLesson" class="no-lesson-info">
+      <p>Seçilen gün için tekrar bilgisi bulunamadı.</p>
     </div>
-</form>
+  
+    <!-- Ders Tekrarı Kartları -->
+    
+  </div>

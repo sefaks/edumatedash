@@ -1,0 +1,26 @@
+<div class="quizzes">
+    <h2>Kaydedilmiş Sınavlar</h2>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Sınav Seç</mat-label>
+      <mat-select [(value)]="selectedQuiz" (selectionChange)="viewQuizDetails($event.value)">
+        <mat-option *ngFor="let quiz of quizzes" [value]="quiz.id">{{ quiz.title }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <div *ngIf="selectedQuiz">
+        <h3>{{ selectedQuiz.title }}</h3>
+        <div *ngFor="let question of selectedQuiz.results.questions">
+          <p><strong>Soru:</strong> {{ question.text }}</p>
+          
+          <div class="answer-comparison">
+            <p><strong>Kullanıcı Cevabı:</strong> {{ selectedQuiz.results.answers[question.questionId] }}</p>
+      
+            <!-- Doğru cevapları yalnızca mevcut olduğunda göster -->
+            <p><strong>Doğru Cevap:</strong> 
+              {{ correctAnswers[question.questionId] ? correctAnswers[question.questionId] : 'Doğru cevap yükleniyor...' }}
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
