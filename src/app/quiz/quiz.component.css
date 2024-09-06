@@ -160,3 +160,10 @@ button:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
 }
+
+.soru{
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #333;
+}

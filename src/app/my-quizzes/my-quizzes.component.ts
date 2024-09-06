@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { T3serviceService } from '../t3service.service';
 
 interface Quiz {
   id: string;
@@ -16,52 +15,39 @@ interface Quiz {
 @Component({
   selector: 'app-my-quizzes',
   templateUrl: './my-quizzes.component.html',
-  styleUrl: './my-quizzes.component.css'
+  styleUrls: ['./my-quizzes.component.css']
 })
 export class MyQuizzesComponent implements OnInit {
-  quizzes: any[] = [];
-  selectedQuiz: any; // Seçilen quizin detaylarını saklamak için bir değişken
-  examResults: any = {}; // Kullanıcının verdiği cevapları saklamak için
-  correctAnswers: any = {}; // Doğru cevapları saklamak için
+  quizzes: Quiz[] = [];
+  selectedQuizId?: string;
+  selectedQuiz?: Quiz;
+  correctAnswers: { [questionId: string]: string } = {};
 
-  constructor(private t3Service:T3serviceService) { }
+  constructor() { }
 
   ngOnInit() {
     this.loadSavedQuizzes();
   }
 
-  // LocalStorage'dan sınavları yükler
   loadSavedQuizzes() {
     const storedResults = localStorage.getItem('savedExams');
-    if (storedResults) {
-      this.quizzes = JSON.parse(storedResults);
+    this.quizzes = storedResults ? JSON.parse(storedResults) : [];
+  }
+
+  viewQuizDetails(quizId: string) {
+    this.selectedQuizId = quizId;
+    this.selectedQuiz = this.quizzes.find(quiz => quiz.id === quizId);
+
+    // Doğru cevapları yüklemek için localStorage'dan verileri al
+    if (this.selectedQuiz) {
+      this.loadCorrectAnswers();
     }
   }
 
-  // Quiz'in detaylarını görüntülemek için
-  viewQuizDetails(quizId: string) {
-    this.selectedQuiz = this.quizzes.find(q => q.id === quizId);
+  loadCorrectAnswers() {
+    const storedAnswers = localStorage.getItem('correctAnswers');
+    if (storedAnswers) {
+      this.correctAnswers = JSON.parse(storedAnswers);
+    }
   }
-
-  // Prompt ile soruları LLM'e sor ve doğru cevapları al
-  // Prompt ile soruları LLM'e sor ve doğru cevapları al
-getCorrectAnswers() {
-  let prompt = "Aşağıda verilen soruları ve cevapları gözden geçir ve doğru cevapları ver:\n\n";
-
-  // Seçilen quiz'in soruları ve kullanıcının cevaplarını prompt'a ekle
-  if (this.selectedQuiz && this.selectedQuiz.results.questions) {
-    this.selectedQuiz.results.questions.forEach((question: any) => {
-      const userAnswer = this.selectedQuiz.results.answers[question.questionId] || "Cevap yok";
-      prompt += `Soru: ${question.text}\nKullanıcının Cevabı: ${userAnswer}\n\n`;
-    });
-
-    prompt += "Lütfen doğru cevapları ver.";
-
-    // T3 servisine prompt'u gönder
-    this.t3Service.sendPrompt(prompt).subscribe((response: any) => {
-      this.correctAnswers = response.correctAnswers || {}; 
-      console.log("Doğru Cevaplar:", this.correctAnswers);
-    });
-  }
-}
 }

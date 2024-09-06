@@ -207,11 +207,10 @@ export class QuizComponent implements OnInit {
       });
     }
   }
-
   saveExamResults() {
-    console.log('Cevaplar:', this.examResults);
+    console.log('Cevaplar:', this.userAnswers);
   
-    if (!this.examResults || Object.keys(this.examResults).length === 0) {
+    if (!this.userAnswers || Object.keys(this.userAnswers).length === 0) {
       console.log('Cevaplar eksik veya boş!');
       return;
     }
@@ -221,23 +220,35 @@ export class QuizComponent implements OnInit {
       title: this.quizTitle || 'Yeni Quiz',
       results: {
         questions: this.questions,
-        answers: this.examResults,
+        answers: this.userAnswers,
         correctAnswers: this.correctAnswers
       }
     };
   
     console.log('Kaydedilecek Cevaplar:', JSON.stringify(resultsToSave, null, 2));
-    this.saveExamResultsToStorage(resultsToSave);
+    this.saveExamResultsToStorage(resultsToSave,this.correctAnswers);
   }
 
-  saveExamResultsToStorage(results: any) {
-    const storedResults = localStorage.getItem('savedExams');
-    let savedExams = storedResults ? JSON.parse(storedResults) : [];
-
-    savedExams.push(results);
-    localStorage.setItem('savedExams', JSON.stringify(savedExams));
+  saveExamResultsToStorage(results: any, correctAnswers: any) {
+    try {
+      // Sınav sonuçlarını kaydetme
+      const storedResults = localStorage.getItem('savedExams');
+      let savedExams = storedResults ? JSON.parse(storedResults) : [];
+      
+      if (!Array.isArray(savedExams)) {
+        savedExams = [];
+      }
+  
+      savedExams.push(results);
+      localStorage.setItem('savedExams', JSON.stringify(savedExams));
+  
+      // Doğru cevapları kaydetme
+      localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
+    } catch (error) {
+      console.error('LocalStorage hatası:', error);
+      // Hata yönetimi için uygun bir strateji ekleyin
+    }
   }
-
   collectAnswer(questionId: string, event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
     const answer = textarea.value;

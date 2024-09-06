@@ -65,7 +65,6 @@
       <div class="footer">
         <div class="button-group" style="width: 50%;">
           <button mat-raised-button color="accent" (click)="finishExam()">Sınavı Bitir</button>
-          <button mat-raised-button class="finish-btn" style="background-color: #3f51b5; color: white;" (click)="saveExamResults()">Sınavı Kaydet</button>
         </div>
         <div class="countdown" style="width: 50%;">
           <h2>Süre: {{ countdownDisplay }}</h2>
@@ -78,7 +77,7 @@
       <h2>Sınav Sonuçları</h2>
       
       <div *ngFor="let question of questions">
-        <h3>Soru: {{ question.text }}</h3>
+        <h3 class="soru">Soru: {{ question.text }}</h3>
         <p><strong>Doğru Cevap:</strong> {{ correctAnswers[question.questionId] }}</p>
         <p><strong>Kullanıcı Cevabı:</strong> {{ userAnswers[question.questionId] }}</p>
         <p *ngIf="explanations[question.questionId]">
