@@ -18,6 +18,14 @@
         <i class="fas fa-list-alt"></i>
         <span>Mini Quiz</span> 
       </a>
+      <a class="section" mat-list-item routerLink="/navigation/daily-reminders">
+        <i class="fas fa-redo-alt"></i>
+        <span>Tekrar Zamanı</span>
+    </a>
+      <a class="section" mat-list-item  routerLink="/navigation/schedule">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Ders Programım</span> 
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -31,7 +39,7 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
       }
-      <span>Çalışma Masam</span>
+      <span> {{pageTitle}}</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

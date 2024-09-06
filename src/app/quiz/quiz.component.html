@@ -1,4 +1,7 @@
 <div class="container">
+    <header class="chat-header" style="display: flex; justify-content: center;">
+        <h3 class="title">Burada istediğin derste kendine göre quizler oluşturabilirsin. Unutma, gelişmenin tek yolu kendini sınamaktır.</h3>
+      </header>
     <form [formGroup]="quizForm">
     <div class="quiz-selections">
         <mat-form-field class="selection" appearance="fill">
@@ -13,8 +16,7 @@
         <mat-form-field class="selection" appearance="fill">
             <mat-label>Soru Stili</mat-label>
             <mat-select  formControlName="soruStili"  required>
-              <mat-option value="klasik">Klasik Tarz</mat-option>
-              <mat-option value="test">Çoktan Seçmeli</mat-option>
+              <mat-option value="klasik tarz">Klasik Tarz</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field class="selection" appearance="fill">
@@ -42,19 +44,26 @@
             @for(question of questions; track $index){
                 @if(question.type === 'open-ended'){
                     <div class="question">
-                        <h3 class="question-text">{{ i + 1}}. {{ question.text }}</h3>
+                        <h3 class="question-text">{{ question.text }}</h3>
                         <div class="answer">
                             <textarea matInput placeholder="Cevabınızı buraya yazın"></textarea>
                         </div>
                     </div>
-                }@else {
-                    <div class="question" *ngFor="let question of questions; let i = index">
-                        <h3 class="question-text">{{i + 1}}. {{ question.text }}</h3>
-                        <div class="answer">
-                            <textarea matInput placeholder="Cevabınızı buraya yazın"></textarea>
-                        </div>
+                }<div *ngIf="question.type === 'multiple-choice'">
+                    <ul>
+                        <div class="question">
+                        <h3 class="question-text">{{ question.text }}</h3>
+                        <label>
+                            @for(choice of question.choices; track $index){
+                                <div class="choice">
+                                    <input type="radio" name="{{ question.text }}" [value]="choice">
+                                    {{ choice }}
+                                </div>
+                            }
+                        </label>
                     </div>
-                }
+                    </ul>
+                  </div>
                    
             }
             <button  mat-raised-button color="accent"  >Sınavı Bitir</button>

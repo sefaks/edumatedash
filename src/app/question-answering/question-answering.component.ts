@@ -16,7 +16,7 @@ export class QuestionAnsweringComponent {
 
   constructor(private t3Service: T3serviceService) {
 
-    this.t3Service.messageHistory.subscribe((history) => {
+    this.t3Service.messageHistoryQuestionAnswering.subscribe((history) => {
       
         this.chatHistory = history;
       
@@ -36,6 +36,14 @@ export class QuestionAnsweringComponent {
     await this.t3Service.generateQuestionAnswering(userInput);  
     this.loading = false;
   }
+
+  goToBottom(){
+    const element = document.getElementById("history");
+    if(element){
+      element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });  
+
+    }
+}
 }
   
 

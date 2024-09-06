@@ -27,6 +27,10 @@ import { QuizComponent } from './quiz/quiz.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { QuestionAnsweringComponent } from './question-answering/question-answering.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { DailyRemindersComponent } from './daily-reminders/daily-reminders.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -36,33 +40,39 @@ import { SkeletonComponent } from './skeleton/skeleton.component';
     ExplanationComponent,
     QuestionAnsweringComponent,
     QuizComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    ScheduleComponent,
+    DailyRemindersComponent
   ],
-  imports: [
-    BrowserModule,
-    MatRadioModule,
-    RouterModule,
-    MatCardModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    AppRoutingModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatSelectModule, 
-    MatFormFieldModule,
-    MatIconModule,
-    MatListModule,
-    CommonModule,
-    MatSidenavModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  // ...
+
+    imports: [
+      BrowserModule,
+      MatRadioModule,
+      RouterModule,
+      MatCardModule,
+      HttpClientModule,
+      ReactiveFormsModule,
+      FormsModule,
+      AppRoutingModule,
+      MatToolbarModule,
+      MatButtonModule,
+      MatSidenavModule,
+      MatSelectModule, 
+      MatFormFieldModule,
+      MatIconModule,
+      MatListModule,
+      CommonModule,
+      MatSidenavModule,
+      MatFormFieldModule,
+      MatGridListModule,
+      MatCardModule,
+      MatMenuModule,
+      FormsModule,
+      MatDatepickerModule, // Add MatDatepickerModule here
+      ReactiveFormsModule,
+      MatSnackBarModule // Add MatSnackBarModule here
+    ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync()

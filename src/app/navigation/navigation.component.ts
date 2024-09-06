@@ -15,7 +15,7 @@ export class NavigationComponent implements OnInit {
     ['explanation', 'Konuları Anlama Vakti'],
     ['question-answering', 'Soru Çözümü'],
     ['quiz', 'Bildiklerimizi Deneyelim'],
-    ['doctor-appointments','Doctor Appointments'],
+    ['schedule','Ders Programı'],
     ['add-appointment','Add Patient'],
     ['add-doctor','Add Doctor']
   ]);

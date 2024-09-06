@@ -4,6 +4,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ExplanationComponent } from './explanation/explanation.component';
 import { QuestionAnsweringComponent } from './question-answering/question-answering.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { DailyRemindersComponent } from './daily-reminders/daily-reminders.component';
 
 const routes: Routes = [
   { 
@@ -13,7 +15,8 @@ const routes: Routes = [
       { path: 'quiz', component: QuizComponent },
       { path: 'question-answering', component: QuestionAnsweringComponent },
       { path: 'explanation', component: ExplanationComponent },
-
+      { path: 'schedule', component: ScheduleComponent },
+      {path: 'daily-reminders', component: DailyRemindersComponent},
       { path: '', redirectTo: 'explanation', pathMatch: 'full' },
       { path: '**', redirectTo: 'explanation' }
     ]

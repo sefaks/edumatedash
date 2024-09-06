@@ -4,7 +4,7 @@
     <header class="chat-header">
       <h3 class="title">Soru Çözümüne Hoşgeldin! İkimiz bir olursak soruları çok kolay çözeriz.</h3>
     </header>
-    <main class="chat-history">
+    <main id="history"  class="chat-history">
       <ng-container>
       @for(item of chatHistory;track $index){
         <div class="messages" [ngClass]="{'user-message': item.from === 'user', 'assistant-message': item.from === 'assistant'}">
@@ -40,8 +40,30 @@
         <app-skeleton></app-skeleton>
       </ng-container>
     </main>
+  
     <footer class="chat-input">
-      <input class="user-input" type="text" id="message-input" (keyup.enter)="sendData()" placeholder="Type your message..." [(ngModel)]="prompt" [disabled]="loading" autocomplete="off"/>
-      <button class="send-button" id="send-button" (click)="sendData()"  [disabled]="loading">Send</button>
+      <input
+        class="user-input"
+        type="text"
+        id="message-input"
+        (keyup.enter)="sendData()"
+        placeholder="Hadi Çözelim Şu Soruları..."
+        [(ngModel)]="prompt"
+        [disabled]="loading"
+        autocomplete="off"
+      />
+      <button
+        class="send-button"
+        id="send-button"
+        (click)="sendData()"
+        [disabled]="loading"
+      >Gönder</button>
+      <button
+        class="scroll-to-bottom"
+        (click)="goToBottom()"
+        [disabled]="loading"
+      >
+        <i class="fa fa-arrow-down"></i>
+      </button>
     </footer>
   </div>

@@ -1,0 +1,15 @@
+.lesson-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .lesson-selections {
+    margin-bottom: 20px;
+  }
+  
+  .selection {
+    width: 100%;
+  }

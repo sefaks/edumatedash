@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { EduRagResponse } from './models/eduragresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class T3serviceService {
 
   messageHistory: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  messageHistoryQuestionAnswering: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   constructor(private http: HttpClient) { }
 
@@ -50,10 +52,10 @@ export class T3serviceService {
     this.http.post<any>(url, JSON.stringify(payload), { headers })
       .subscribe(response => {
         console.log('LLM Cevap:', response);
-        const history = this.messageHistory.getValue();
+        const history = this.messageHistoryQuestionAnswering.getValue();
         history.push({ from: 'user', message: prompt });
-        history.push({ from: 'bot', message: response });
-        this.messageHistory.next(history);
+        history.push({ from: 'assistant', message: response });
+        this.messageHistoryQuestionAnswering.next(history);
       }, error => {
         console.error('Error:', error);
       });
@@ -77,5 +79,24 @@ export class T3serviceService {
     // POST isteği ve yanıtın Observable olarak döndürülmesi
     return this.http.post<any>(url, JSON.stringify(payload), { headers });
   }
+
+  getEduRag(query: string): Observable<EduRagResponse> {
+    const apiUrl = 'http://localhost:8000/api/v1/edu-rag';
+    const body = {
+      query: query,
+      id: 0
+    };
+  
+    return this.http.post<EduRagResponse>(apiUrl, body);
+  }
+
+  sendPrompt(prompt: string): Observable<any> {
+    const url = "http://127.0.0.1:5000/generate";  
+    const body = { prompt: prompt };
+    return this.http.post<any>(url, body);
+  }
+
+
+
 
 }

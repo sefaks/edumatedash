@@ -11,7 +11,7 @@
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #c1c1e2;
+    background-color: #d1d1f5;
 }
 
 .quiz-questions {
@@ -81,4 +81,11 @@ button {
 .generate-quiz-btn:hover {
   background-color: #45a049; /* Üzerine gelindiğinde arka plan rengi değişir */
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Hover efektinde gölge eklenir */
+}
+
+.title{
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: larger;
+  font-style: normal;
 }

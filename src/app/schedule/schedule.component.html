@@ -1,0 +1,35 @@
+<form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()" style="margin-top: 15px; margin-left: 15px;">
+    <div *ngFor="let day of days" class="day-section">
+      <h4 class="day">{{ day }}</h4>
+  
+      <div *ngFor="let lesson of lessonsPerDay; let i = index" class="form-group">
+        <input
+          type="time"
+          id="{{ day }}_time_{{ i + 1 }}"
+          formControlName="{{ day }}_time_{{ i + 1 }}"
+          class="form-control"
+        />
+  
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Ders Seçimi</mat-label>
+          <mat-select
+            id="{{ day }}_course_{{ i + 1 }}"
+            formControlName="{{ day }}_course_{{ i + 1 }}"
+            required
+          >
+            <mat-option value="turkce">Türkçe</mat-option>
+            <mat-option value="matematik">Matematik</mat-option>
+            <mat-option value="sosyal-bilgiler">Sosyal Bilgiler</mat-option>
+            <mat-option value="fen-bilgisi">Fen Bilgisi</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <button class="btn-program" type="submit" class="btn btn-primary" [disabled]="!scheduleForm.valid">
+      Ders Programını Kaydet
+    </button>
+    <div *ngIf="message" [ngClass]="messageType">
+        {{ message }}
+      </div>
+  </form>

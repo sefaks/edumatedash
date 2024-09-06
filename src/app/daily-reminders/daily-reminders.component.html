@@ -1,0 +1,16 @@
+<form [formGroup]="lessonForm">
+    <div class="date-selection">
+        <mat-form-field>
+            <mat-label>Tarihi Seçelim</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+    </div>
+
+    <div *ngIf="selectedLesson" class="lesson-container">
+        <h3>{{ selectedLesson.title }}</h3>
+        <p>{{ selectedLesson.content }}</p>
+    </div>
+</form>
