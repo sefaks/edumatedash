@@ -9,6 +9,9 @@ interface Quiz {
       text: string;
     }[];
     answers: { [key: string]: string };
+    correctAnswers: { [key: string]: string }; // Doğru cevaplar
+    explanations: { [key: string]: string };   
+
   };
 }
 
@@ -26,6 +29,17 @@ export class MyQuizzesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.selectedQuiz = {
+      id: '1',
+      title: 'Sample Quiz',
+      results: {
+        questions: [],
+        answers: {},
+        correctAnswers: {},
+        explanations: {}
+      }
+    };
+
     this.loadSavedQuizzes();
   }
 
@@ -37,10 +51,15 @@ export class MyQuizzesComponent implements OnInit {
   viewQuizDetails(quizId: string) {
     this.selectedQuizId = quizId;
     this.selectedQuiz = this.quizzes.find(quiz => quiz.id === quizId);
-
-    // Doğru cevapları yüklemek için localStorage'dan verileri al
+  
     if (this.selectedQuiz) {
-      this.loadCorrectAnswers();
+      // Doğru cevaplar ve açıklamalar varsa yükleyin
+      this.correctAnswers = this.selectedQuiz.results.correctAnswers || {};
+      const explanations = this.selectedQuiz.results.explanations || {};
+  
+      // Burada explanations ve correctAnswers ile ilgili işlemleri yapabilirsiniz.
+      console.log("Açıklamalar:", explanations);
+      console.log("Doğru Cevaplar:", this.correctAnswers);
     }
   }
 

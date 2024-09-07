@@ -13,13 +13,14 @@
     <div style="margin-top: 25px;" *ngFor="let question of selectedQuiz.results.questions">
       <p class="m-20"><strong>Soru: {{ question.text }} </strong></p>
 
-      <div class="answer-comparison" >
+      <div class="answer-comparison">
         <p class="m-20"><strong>Kullanıcı Cevabı:</strong> {{ selectedQuiz.results.answers[question.questionId] }}</p>
-        
-        <p class="m-20"><strong>Doğru Cevap:</strong>
-          {{ correctAnswers[question.questionId] || 'Doğru cevap yükleniyor...' }}
-        </p>
-      </div>
+
+        <p class="m-20"><strong>Doğru Cevap:</strong> {{ selectedQuiz.results.correctAnswers[question.questionId] || 'Doğru cevap yükleniyor...' }}</p>
+
+        <p class="m-20" *ngIf="selectedQuiz?.results?.explanations">
+          <strong>Açıklama:</strong> {{ selectedQuiz.results.explanations[question.questionId] || 'Açıklama yükleniyor...' }}
+        </p>      </div>
     </div>
   </div>
 </div>

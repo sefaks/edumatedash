@@ -86,18 +86,23 @@ export class QuizComponent implements OnInit {
     console.log('Form:', this.quizForm.value);
     if (this.quizForm.valid) {
       const formValues = this.quizForm.value;
+  
+      // Tarih ve saat ile başlığı oluştur
+      const currentDate = new Date();
+      this.quizTitle = `Quiz - ${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+  
       const input = `${formValues.ders} dersinden ${formValues.soruSayisi} adet ${formValues.zorluk} zorlukta ${formValues.soruStili} soru oluştur.`;
-
+  
       this.t3Service.generateQuiz(formValues).subscribe(
         (response: any) => {
           console.log('API Cevabı:', response);
-
+  
           this.handleResponse(response);
           this.questions = this.parseQuizQuestions(response);
           const toplamSure = this.calculateTotalTime(this.questions);
           this.countdown = toplamSure;
           this.startCountdown();
-
+  
           this.getCorrectAnswers();
         },
         (error: any) => {
@@ -221,7 +226,8 @@ export class QuizComponent implements OnInit {
       results: {
         questions: this.questions,
         answers: this.userAnswers,
-        correctAnswers: this.correctAnswers
+        correctAnswers: this.correctAnswers,
+        explanations: this.explanations 
       }
     };
   
@@ -231,24 +237,25 @@ export class QuizComponent implements OnInit {
 
   saveExamResultsToStorage(results: any, correctAnswers: any) {
     try {
-      // Sınav sonuçlarını kaydetme
       const storedResults = localStorage.getItem('savedExams');
       let savedExams = storedResults ? JSON.parse(storedResults) : [];
-      
+  
       if (!Array.isArray(savedExams)) {
         savedExams = [];
       }
   
+      // Sınav sonuçlarına açıklamaları ekleyin
+      results.explanations = this.explanations;
+  
       savedExams.push(results);
       localStorage.setItem('savedExams', JSON.stringify(savedExams));
   
-      // Doğru cevapları kaydetme
       localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
     } catch (error) {
       console.error('LocalStorage hatası:', error);
-      // Hata yönetimi için uygun bir strateji ekleyin
     }
   }
+
   collectAnswer(questionId: string, event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
     const answer = textarea.value;
