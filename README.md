@@ -43,7 +43,7 @@ Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edin.
 2. Proje klasörüne gidin:
 
     ```bash
-    cd proje-adi
+    cd edumatedash
     ```
 
 3. Bağımlılıkları yükleyin:
@@ -71,6 +71,6 @@ https://drive.google.com/drive/folders/1P7SclZVmSuyu_wsb_FrIM5h4KaZwJMzb?usp=dri
 ## Kullanım
 
 - Projeyi çalıştırdıktan sonra tarayıcınızda `/` adresine gidin.
-- Kullanıcılak özellikler için arayüüzn sol tarafından seçimler yapabilirsiniz.
-- Bir sorunuz olursa bu email aracğılı ile iletişime geçebilirsinz > sefakse11@gmail.com
+- Kullanılacak özellikler için arayüzün sol tarafından seçimler yapabilirsiniz.
+- Bir sorunuz olursa bu email aracılığı ile iletişime geçebilirsinz > sefakse11@gmail.com
 
