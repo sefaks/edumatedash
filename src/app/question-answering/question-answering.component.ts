@@ -29,14 +29,22 @@ export class QuestionAnsweringComponent implements OnInit {
     if (this.prompt.trim() === '') {
       return;  
     }
-
+  
     this.loading = true;
-
-    const formattedPrompt = `Bu soruda tek bir doğru cevap var. Doğru şıkkı seçip, bana açıklar mısın?\n\nSoru: ${this.prompt}`;
+  
+    const formattedPrompt = `Bu soruda tek bir doğru cevap var. Doğru şıkkı seçip, bana açıklayarak anlatır mısın?\n\nSoru: ${this.prompt}`;
     
-    this.prompt = '';  
-
-    await this.t3Service.generateQuestionAnswering(formattedPrompt);  
+    const userQuestion = this.prompt;
+    this.chatHistory.push({ from: 'user', message: userQuestion });
+  
+    this.prompt = '';
+  
+    try {
+      await this.t3Service.generateQuestionAnswering(formattedPrompt);  
+    } catch (error) {
+      console.error('Model çağrısı sırasında hata:', error);
+    }
+  
     this.loading = false;
   }
 

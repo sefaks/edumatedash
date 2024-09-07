@@ -72,27 +72,31 @@ export class T3serviceService {
     return this.http.post<any>(url, body);
   }
 
-  
   generateQuestionAnswering(prompt: string) {
     const url = "http://127.0.0.1:8000/api/v1/generate";  
-
+  
     const payload = {
-      prompt: prompt
+      prompt: prompt  
     };
 
+    console.log('Prompt:', prompt);
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
-    this.http.post<any>(url, JSON.stringify(payload), { headers })
-      .subscribe(response => {
+  
+    return this.http.post<any>(url, JSON.stringify(payload), { headers })
+      .toPromise()
+      .then(response => {
         console.log('LLM Cevap:', response);
+        
         const history = this.messageHistoryQuestionAnsweringSubject.getValue();
-        history.push({ from: 'user', message: prompt });
         history.push({ from: 'assistant', message: response });  
         this.messageHistoryQuestionAnsweringSubject.next(history);
-      }, error => {
+  
+      }).catch(error => {
         console.error('Error:', error);
+        throw error;
       });
   }
 
