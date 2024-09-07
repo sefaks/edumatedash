@@ -21,7 +21,7 @@ Bu proje, öğrencilerin kişiselleştirilmiş bir eğitimi her an alabilmelerin
 - Özellik 1: İnteraktif Konu Anlatımı Arayüzü
 - Özellik 2: İnteraktif Test Anlatımı Arayüzü
 - Özellik 3: Quiz Oluşturma
-- Özellik 4: Quziler ve Değerlendirmlerini Görüntüleme
+- Özellik 4: Quizler ve Değerlendirmelerini Görüntüleme
 
 ## Kurulum
 
