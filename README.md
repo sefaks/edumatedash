@@ -8,9 +8,8 @@ Burada kullanıcının eğitim yeteneklerini geliştirebileceği, test edebilece
 - [Proje Hakkında](#proje-hakkında)
 - [Kurulum](#kurulum)
 - [Kullanım](#kullanım)
-- [Geliştirme](#geliştirme)
+- [Veri Seti](#veriseti)
 - [Bağımlılıklar](#bağımlılıklar)
-- [Lisans](#lisans)
 
 ## Proje Hakkında
 
@@ -64,6 +63,10 @@ Projeyi yerel ortamınıza kurmak için aşağıdaki adımları takip edin.
     ```bash
     http://localhost:4203
     ```
+
+## Veri Seti
+Projede kullanılmak üzere oluşturduğumuz veri setinin linkine aşağıdan ulaşabilirsinz;
+https://drive.google.com/drive/folders/1P7SclZVmSuyu_wsb_FrIM5h4KaZwJMzb?usp=drive_link
 
 ## Kullanım
 
