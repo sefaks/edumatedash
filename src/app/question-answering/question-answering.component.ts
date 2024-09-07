@@ -14,6 +14,8 @@ export class QuestionAnsweringComponent implements OnInit {
   showFeedbackForm: boolean = false;
   selectedMessage: any;
   feedback: string = '';
+  isLike: boolean = false; // Kullanıcının beğenme durumu
+
 
   constructor(private t3Service: T3serviceService) { }
 
@@ -45,18 +47,25 @@ export class QuestionAnsweringComponent implements OnInit {
     }
   }
 
-  likeAnswer(message: any) {
-    console.log('Beğenilen cevap:', message.message);
+  likeAnswer(item: any) {
+    console.log('Beğen butonuna tıklandı. Item:', item);
+    this.isLike = true;
+    this.selectedMessage = item;
   }
 
-  dislikeAnswer(message: any) {
+  dislikeAnswer(item: any) {
+    console.log('Beğenmedim butonuna tıklandı. Item:', item);
+    this.isLike = false;
+    this.selectedMessage = item;
     this.showFeedbackForm = true;
-    this.selectedMessage = message;
   }
 
   submitFeedback() {
     if (this.selectedMessage) {
-      this.t3Service.submitFeedback(this.selectedMessage.message, this.feedback)
+      const rating = this.isLike ? 'like' : 'dislike'; // isLike, kullanıcının beğenme durumu
+      const response = this.selectedMessage.response; // Model yanıtı
+  
+      this.t3Service.submitFeedback(this.selectedMessage.message, this.feedback, rating, response)
         .subscribe(response => {
           console.log('Geri bildirim:', response);
           this.showFeedbackForm = false;
@@ -66,7 +75,13 @@ export class QuestionAnsweringComponent implements OnInit {
         });
     }
   }
+
   trackByIndex(index: number, item: any): number {
     return index;
   }
+  closeFeedbackForm() {
+    this.showFeedbackForm = false;
+  }
+
+  
 }

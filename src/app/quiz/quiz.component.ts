@@ -64,7 +64,7 @@ export class QuizComponent implements OnInit {
         }
       } else {
         clearInterval(this.interval);
-        this.clearQuestions();
+        this.isExamFinished = true;
         alert("Süreniz doldu! Sınav tamamlandı.");
       }
     }, 1000);

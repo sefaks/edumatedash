@@ -72,8 +72,7 @@ export class ExplanationComponent {
     }
   
     const group = groupedResults[index];
-    const prompt = this.createPromptFromResults(group);
-    const modifiedPrompt = this.modifyPrompt(prompt);
+    const modifiedPrompt = this.createPromptFromResults(group);
   
     // Özetleme isteği
     this.t3Service.sendPrompt(modifiedPrompt)
@@ -106,9 +105,6 @@ export class ExplanationComponent {
     return prompt;
   }
   
-  modifyPrompt(prompt: string): string {
-    return `Başlık: Eğitim Konusu\n\n${prompt}`;
-  }
 
   trackByFn(index: number, item: any): number {
     return index;
@@ -122,7 +118,7 @@ export class ExplanationComponent {
   }
 
   askQuestionBasedOnSummary(summary: string, index: number, groupedResults: string[][]) {
-    const questionPrompt = `Bu özete dayalı bir soru oluştur: ${summary}`;
+    const questionPrompt = `Bu özete dayalı bir soru oluştur ve sen cevaplama lütfen: ${summary}`;
     
     this.t3Service.sendPrompt(questionPrompt)
       .subscribe(response => {
@@ -137,6 +133,7 @@ export class ExplanationComponent {
         console.error('Error:', error);
         this.loading = false;
       });
+      this.prompt = '';
   }
 
   submitAnswer() {
@@ -158,9 +155,24 @@ export class ExplanationComponent {
   }
 
   evaluateAnswer(answer: string) {
-    const previousMessages = this.chatHistory.map(item => item.message).join('\n');
-    const prompt = `Önceki mesajlar: ${previousMessages}\nKullanıcı cevabı: ${answer}\nLütfen cevabı değerlendir. Eğer doğruysa tebrik et, yanlıişsa düzelt.`;
+    // Son iki asistan mesajını buluyoruz.
+    const lastTwoAssistantMessages = this.chatHistory
+      .filter(item => item.from === 'assistant') // Sadece asistanın mesajlarını alıyoruz.
+      .slice(-2) // Son iki asistan mesajını alıyoruz.
+      .map(item => item.message) // Mesajların içeriklerini alıyoruz.
+      .join('\n'); // İki mesajı birleştiriyoruz.
   
+    if (!lastTwoAssistantMessages) {
+      console.error('Asistanın mesajları bulunamadı.');
+      return;
+    }
+    console.log('Son iki asistan mesajı:', lastTwoAssistantMessages);
+  
+    // Değerlendirme için prompt oluşturuyoruz
+    const prompt = `Paragraf ve soru: ${lastTwoAssistantMessages}\nKullanıcı cevabı: ${answer}\nBu paragraf ve soruya göre kullanıcının verdiği yanıt alakalı? Doğruysa tebrik et, yanlışsa düzelt.`;
+  
+    console.log(prompt);
+    // Asistanın iki mesajı ve kullanıcının cevabı değerlendirme için gönderiliyor.
     this.t3Service.sendPrompt(prompt)
       .subscribe(response => {
         this.chatHistory.push({ from: 'assistant', message: `Değerlendirme: ${response}` });

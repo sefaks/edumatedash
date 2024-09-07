@@ -108,11 +108,14 @@ body {
 }
 
 .user-message {
+  background-color: #ffffff;
   justify-content: flex-start;
   text-align: left;
 }
 
 .assistant-message {
+  background-color: #ffffff;
+
   justify-content: flex-end;
   text-align: right;
 }
@@ -246,14 +249,42 @@ border-radius: 5px;
   background-color: #0056b3;
 }
 
-button {
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-size: 16px;
-  font-weight: 500;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-success, .btn-danger {
+  margin-right: 10px; /* Butonlar arasında boşluk bırakır */
+}
+
+.feedback-buttons {
+  margin-top: 10px;
 }
 
 /* Gönder butonu */
@@ -289,4 +320,14 @@ button {
 .feedback-form .submit-feedback:disabled {
   background-color: #d6d6d6;
   cursor: not-allowed;
+}
+
+.close-feedback-form {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }

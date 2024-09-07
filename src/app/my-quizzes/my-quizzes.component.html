@@ -10,13 +10,13 @@
 
   <div *ngIf="selectedQuiz">
     <h3>{{ selectedQuiz.title }}</h3>
-    <div *ngFor="let question of selectedQuiz.results.questions">
-      <p><strong>Soru:</strong> {{ question.text }}</p>
+    <div style="margin-top: 25px;" *ngFor="let question of selectedQuiz.results.questions">
+      <p class="m-20"><strong>Soru: {{ question.text }} </strong></p>
 
-      <div class="answer-comparison">
-        <p><strong>Kullanıcı Cevabı:</strong> {{ selectedQuiz.results.answers[question.questionId] }}</p>
+      <div class="answer-comparison" >
+        <p class="m-20"><strong>Kullanıcı Cevabı:</strong> {{ selectedQuiz.results.answers[question.questionId] }}</p>
         
-        <p><strong>Doğru Cevap:</strong>
+        <p class="m-20"><strong>Doğru Cevap:</strong>
           {{ correctAnswers[question.questionId] || 'Doğru cevap yükleniyor...' }}
         </p>
       </div>

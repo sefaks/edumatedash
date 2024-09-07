@@ -57,6 +57,9 @@
   </footer>
 
   <div *ngIf="showFeedbackForm" class="feedback-form">
+    <button class="close-feedback-form" (click)="closeFeedbackForm()">
+      <i class="fa fa-times"></i>
+    </button>
     <h4>Geri Bildirim:</h4>
     <textarea
       class="user-input"
@@ -68,4 +71,3 @@
       (click)="submitFeedback()"
     >Geri Bildirim Gönder</button>
   </div>
-</div>

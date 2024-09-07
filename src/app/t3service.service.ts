@@ -96,7 +96,7 @@ export class T3serviceService {
       });
   }
 
-  submitFeedback(message: string, feedbackText: string): Observable<any> {
+  submitFeedback(message: string, feedbackText: string, rating: string, response: string): Observable<any> {
     const url = 'http://127.0.0.1:8000/api/v1/save-feedback';
     const feedback = {
       interaction_id: '12345',  
@@ -104,10 +104,10 @@ export class T3serviceService {
       timestamp: new Date().toISOString(),
       content_generated: {
         input_prompt: message,
-        response: 'Model yaniti buraya gelecek' 
+        response: response // Model yanıtı burada
       },
       user_feedback: {
-        rating: 'dislike',
+        rating: rating, // Beğenme durumu
         feedback_text: feedbackText,
         preferred_response: 'Daha iyi bir yanit olabilirdi.' 
       },
@@ -117,19 +117,13 @@ export class T3serviceService {
         session_duration: 30  
       }
     };
-
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
-    return this.http.post<any>(url, JSON.stringify(feedback), { headers });
-  }
-
   
-
- 
-
-
+    return this.http.post(url, feedback, { headers });
+  }
 
 
 }
